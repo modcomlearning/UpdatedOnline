@@ -76,6 +76,36 @@ def signup():
 
 
 
+# create a signin route
+@app.route('/signin',  methods= ['POST','GET'])
+def signin():
+    if request.method =='POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        connection = pymysql.connect(host='localhost', user='root', password='',
+                                     database='NorthWind')
+
+        cursor = connection.cursor()
+
+        cursor.execute('select * from shop_users where email = %s and password = %s',
+                       (email, password))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
