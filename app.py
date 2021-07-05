@@ -90,13 +90,12 @@ def signin():
 
         cursor.execute('select * from shop_users where email = %s and password = %s',
                        (email, password))
-
         # check if above query found a match or not
         if cursor.rowcount == 0:
             return render_template('signin.html', error = 'Wrong Credentials')
 
         else:
-            return  render_template('signin.html', success='Login Success')
+            return redirect('/')
 
     else:
         return render_template('signin.html')

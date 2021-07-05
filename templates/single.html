@@ -32,6 +32,23 @@
                       <i>Uploaded {{row[7]}}</i>
                </div>
         </section>
+       <br><br>
+
+       <section class="row">
+            <div class="col-md-6">
+                <form action="/mpesa_payment" method="post">
+                    <input type="text" name="phone" placeholder="Your Phone 2547xxx">
+                    <br><br>
+                    <input type="text" name="amount" value="{{row[4]}}">
+                    <br><br>
+                    <input type="submit" value="Pay Now" class="btn btn-success">
+                </form>
+                <br><br>
+            </div>
+       </section>
+
+
+
 
 
    </div>
