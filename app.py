@@ -2,6 +2,11 @@
 from flask import *
 # create a Flask app
 app = Flask(__name__)
+# sessions - used in identify a user after login
+# This session is very secure
+# you secure by setting a unique key that no one else knows
+# above key is used to encrypt use session
+app.secret_key = '1_@Ma8vU!_qRb_*A'
 # __name__ means __main__ app
 # database name    flickerdb
 # Table name  Items
@@ -77,6 +82,7 @@ def signup():
 
 
 # create a signin route
+
 @app.route('/signin',  methods= ['POST','GET'])
 def signin():
     if request.method =='POST':
@@ -95,6 +101,7 @@ def signin():
             return render_template('signin.html', error = 'Wrong Credentials')
 
         else:
+            session['key'] = email
             return redirect('/')
 
     else:
@@ -163,11 +170,15 @@ def mpesa_payment():
         print(response.text)
         return render_template('mpesa_payment.html', msg='Please Complete Payment in Your Phone')
     else:
-        return render_template('mpesa_payment.html', total_amount=total_amount)
+        return render_template('mpesa_payment.html')
 
 
 
 
+@app.route('/signout')
+def signout():
+    session.pop('key', None)
+    return redirect('/')
 
 
 
