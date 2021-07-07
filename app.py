@@ -71,6 +71,7 @@ def bikes():
 
 
 
+
 # code for single bike
 @app.route('/singlebike/<id>')
 def singlebike(id):
@@ -89,6 +90,13 @@ def singlebike(id):
 
 
 
+
+
+# TODO create
+  # create a table named camera, columns similar to bikes table, add 3 cameras
+  # , a route and a template to display cameras
+  # if one camera is clicked, do single display
+  # refers on bike routes
 
 
 
