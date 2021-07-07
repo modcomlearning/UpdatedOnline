@@ -31,6 +31,7 @@ def home():
     return render_template('home.html', rows = rows)
 
 
+
 # We create /single route
 # This will display a single product and its details
 @app.route('/single/<id>')
@@ -47,6 +48,47 @@ def single(id):
 
     # Step 4: Forward above row to single.html to be displayed to users
     return render_template('single.html', row=row)
+
+
+
+
+
+# coding for bikes
+@app.route('/bikes')
+def bikes():
+    # Step 1: connect to your database
+    connection = pymysql.connect(host='localhost', user='root', password='',
+                                 database='flickerdb')
+    # Step 2: Create a cursor to execute SQL
+    cursor = connection.cursor()
+    cursor.execute('SELECT * FROM bikes')
+
+    # Step 3:  Get the rows from cursor
+    rows = cursor.fetchall()
+
+    # Step 4: Forward above rows to home.html to be displayed to users
+    return render_template('bikes.html', rows = rows)
+
+
+
+# code for single bike
+@app.route('/singlebike/<id>')
+def singlebike(id):
+    connection = pymysql.connect(host='localhost', user='root', password='',
+                                 database='flickerdb')
+    # Step 2: Create a cursor to execute SQL
+    cursor = connection.cursor()
+    # below %s is an id placeholder, means string
+    cursor.execute('SELECT * FROM bikes WHERE ProductID = %s ', (id))
+
+    # Step 3:  Get the row returned from cursor
+    row = cursor.fetchone()
+
+    # Step 4: Forward above row to single.html to be displayed to users
+    return render_template('singlebike.html', row=row)
+
+
+
 
 
 
@@ -184,8 +226,6 @@ def signout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
 
 
 

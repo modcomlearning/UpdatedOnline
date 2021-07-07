@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Display</title>
+        <link rel="stylesheet"
+          href="../static/bootstrap-4.6.0-dist/css/bootstrap.css">
+</head>
+<body>
+
+   <div class="jumbotron">
+         <h2>Bags Limited</h2>
+         <i>Get All Products at Affordable Prices</i> <br>
+         <a href="/" class="btn btn-info">Continue Shopping</a>
+   </div>
+
+   <div class="container">
+        <section class="row">
+               <div class="col-md-6">
+                   <img src="{{row[6]}}" alt=""
+                        class="img-fluid" width="70%"><br>
+               </div>
+
+               <div class="col-md-6 card">
+
+                      <h2>{{row[1]}}</h2>
+                      <p>{{row[2]}}</p>
+                      <b>Category: {{row[3]}}</b> <br>
+                      <h5 class="text-warning">{{row[4]}}</h5>
+                      <b><strike>{{row[5]}} </strike></b> <br>
+
+               </div>
+        </section>
+       <br><br>
+
+       <section class="row">
+            <div class="col-md-6">
+                <form action="/mpesa_payment" method="post">
+                    <input type="text" name="phone" placeholder="Your Phone 2547xxx">
+                    <br><br>
+                    <input type="text" name="amount" value="{{row[4]}}">
+                    <br><br>
+                    <input type="submit" value="Pay Now" class="btn btn-success">
+                </form>
+                <br><br>
+            </div>
+       </section>
+
+
+
+
+
+   </div>
+</body>
+</html>
