@@ -15,20 +15,34 @@ app.secret_key = '1_@Ma8vU!_qRb_*A'
 # Password  empty
 
 import pymysql
-@app.route('/')
+@app.route('/', methods = ['POST','GET'])
 def home():
-    # Step 1: connect to your database
-    connection = pymysql.connect(host='localhost', user='root', password='',
-                                 database='flickerdb')
-    # Step 2: Create a cursor to execute SQL
-    cursor = connection.cursor()
-    cursor.execute('SELECT * FROM Items')
+    if request.method == 'POST':
+        search = request.form['search']
+        # Step 1: connect to your database
+        connection = pymysql.connect(host='localhost', user='root', password='',
+                                     database='flickerdb')
+        # Step 2: Create a cursor to execute SQL
+        cursor = connection.cursor()
+        cursor.execute('SELECT * FROM Items where ProductName = %s ', (search))
+        # Step 3:  Get the rows from cursor
+        rows = cursor.fetchall()
+        # Step 4: Forward above rows to home.html to be displayed to users
+        return render_template('home.html', rows=rows)
 
-    # Step 3:  Get the rows from cursor
-    rows = cursor.fetchall()
+    else:
+        # Step 1: connect to your database
+        connection = pymysql.connect(host='localhost', user='root', password='',
+                                     database='flickerdb')
+        # Step 2: Create a cursor to execute SQL
+        cursor = connection.cursor()
+        cursor.execute('SELECT * FROM Items')
 
-    # Step 4: Forward above rows to home.html to be displayed to users
-    return render_template('home.html', rows = rows)
+        # Step 3:  Get the rows from cursor
+        rows = cursor.fetchall()
+
+        # Step 4: Forward above rows to home.html to be displayed to users
+        return render_template('home.html', rows = rows)
 
 
 
