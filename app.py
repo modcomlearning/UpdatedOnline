@@ -31,7 +31,6 @@ def home():
     return render_template('home.html', rows = rows)
 
 
-
 # We create /single route
 # This will display a single product and its details
 @app.route('/single/<id>')
@@ -51,23 +50,26 @@ def single(id):
 
 
 
-
-
 # coding for bikes
 @app.route('/bikes')
 def bikes():
-    # Step 1: connect to your database
-    connection = pymysql.connect(host='localhost', user='root', password='',
-                                 database='flickerdb')
-    # Step 2: Create a cursor to execute SQL
-    cursor = connection.cursor()
-    cursor.execute('SELECT * FROM bikes')
+    # check if user has a key, meaning the loggwd, if they have let them access bikes
+    if 'key' in session:
+        # Step 1: connect to your database
+        connection = pymysql.connect(host='localhost', user='root', password='',
+                                     database='flickerdb')
+        # Step 2: Create a cursor to execute SQL
+        cursor = connection.cursor()
+        cursor.execute('SELECT * FROM bikes')
 
-    # Step 3:  Get the rows from cursor
-    rows = cursor.fetchall()
+        # Step 3:  Get the rows from cursor
+        rows = cursor.fetchall()
 
-    # Step 4: Forward above rows to home.html to be displayed to users
-    return render_template('bikes.html', rows = rows)
+        # Step 4: Forward above rows to home.html to be displayed to users
+        return render_template('bikes.html', rows = rows)
+
+    else:
+        return redirect('/signin')  # take the back to login incase no key is available
 
 
 
@@ -87,6 +89,9 @@ def singlebike(id):
 
     # Step 4: Forward above row to single.html to be displayed to users
     return render_template('singlebike.html', row=row)
+
+
+
 
 
 
