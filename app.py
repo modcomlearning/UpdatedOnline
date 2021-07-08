@@ -31,10 +31,21 @@ def home():
     return render_template('home.html', rows = rows)
 
 
+
+
+
+
+
+
+
+
+
+
 # We create /single route
 # This will display a single product and its details
 @app.route('/single/<id>')
 def single(id):
+
     connection = pymysql.connect(host='localhost', user='root', password='',
                                  database='flickerdb')
     # Step 2: Create a cursor to execute SQL
@@ -68,8 +79,12 @@ def bikes():
         # Step 4: Forward above rows to home.html to be displayed to users
         return render_template('bikes.html', rows = rows)
 
+
+
     else:
         return redirect('/signin')  # take the back to login incase no key is available
+
+
 
 
 
@@ -89,10 +104,6 @@ def singlebike(id):
 
     # Step 4: Forward above row to single.html to be displayed to users
     return render_template('singlebike.html', row=row)
-
-
-
-
 
 
 
